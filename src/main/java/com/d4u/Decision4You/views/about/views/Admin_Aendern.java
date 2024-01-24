@@ -21,6 +21,7 @@ public class Admin_Aendern extends VerticalLayout {
     private final ComboBox<Admin> companySelection = new ComboBox<>("Company");
     private final TextField address = new TextField("Address");
     private final TextField name = new TextField("Name");
+    private final TextField names = new TextField("Names");
 
   /*  private final Section companyFormContainer = new Section();
     private final Button save = UIFactory.btnPrimary("Save", e -> onSave());
