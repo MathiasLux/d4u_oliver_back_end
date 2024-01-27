@@ -17,13 +17,14 @@ public class Landing extends VerticalLayout
     {
         setSizeFull();
         setAlignItems(Alignment.CENTER);
+
         //Create Components
         H2 header = new H2("DECISION4YOU");
         Button login = new Button("Login");
         Button join = new Button("Join Vote");
         Button about = new Button("About");
 
-        //Set Button Destination
+        //Set Functions
         login.addClickListener(e -> login.getUI().ifPresent(ui -> ui.navigate("LoginSeite")));
         join.addClickListener(e -> join.getUI().ifPresent(ui -> ui.navigate("JoinSeite")));
         about.addClickListener(e -> about.getUI().ifPresent(ui -> ui.navigate("About")));
