@@ -31,7 +31,7 @@ public class AboutView extends VerticalLayout {
 
         Button button = new Button("Goto Landing");
         button.addClickListener(e ->
-                button.getUI().ifPresent(ui -> ui.navigate("Admin_Aendern")));
+                button.getUI().ifPresent(ui -> ui.navigate("Landing")));
         add(button);
 
         setSizeFull();
