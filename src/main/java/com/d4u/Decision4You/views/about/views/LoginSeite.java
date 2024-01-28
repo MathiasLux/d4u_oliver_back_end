@@ -1,6 +1,9 @@
 package com.d4u.Decision4You.views.about.views;
 
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -11,8 +14,24 @@ public class LoginSeite extends VerticalLayout
 {
     public LoginSeite()
     {
-        H2 text = new H2("LoginSeite");
-        add(text);
+        setAlignItems(Alignment.CENTER);
+
+        //Create Components
+        H2 header = new H2("DECISION4YOU");
+        LoginForm login = new LoginForm();
+
+        //Add Uses
+
+        //Personalise Login
+        LoginI18n i18n = LoginI18n.createDefault();
+        i18n.setAdditionalInformation("Du hast noch keinen Account? Melde dich an mail@mail.com um einen Login zu bekommen.");
+
+        LoginOverlay loginOverlay = new LoginOverlay();
+        loginOverlay.setI18n(i18n);
+
+        //Add Components
+
+        add(header,login);
     }
 
 }

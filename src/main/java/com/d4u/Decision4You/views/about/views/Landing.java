@@ -10,7 +10,7 @@ import org.vaadin.lineawesome.LineAwesomeIcon;
 
 
 @PageTitle("Landing")
-@Route("Landing")
+@Route("")
 public class Landing extends VerticalLayout
 {
     public Landing()
