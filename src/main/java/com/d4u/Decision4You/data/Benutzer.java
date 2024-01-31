@@ -49,6 +49,10 @@ public class Benutzer extends AbstractPersistable<Long> {
     @Enumerated(EnumType.STRING)
     private Rolle rolle;
 
+    @ManyToOne
+    @JoinColumn(name = "bewertung_id")
+    private Bewertung bewertungsteilnahme;
+
     public Benutzer(String vorname, String nachname, String email, String handyNummer
     ,LocalDate gebDatum) {
         this.vorname = vorname;
