@@ -5,23 +5,21 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Getter
 @Table(name = "benutzer")
 
-public class Benutzer extends AbstractPersistable<Long> {
+public class Benutzer extends AbstractPersistable <Long>{
 
     @NotBlank
     @Column(name = "vorname")
@@ -41,7 +39,7 @@ public class Benutzer extends AbstractPersistable<Long> {
 
     @Past
     @Column(name = "gebDatum")
-    private LocalDate gebDatum;
+    private String gebDatum;
 
     //basierend auf rolle wird verschiedene Rechte vergeben bzw. nicht vergeben.
     @NotNull
@@ -49,12 +47,14 @@ public class Benutzer extends AbstractPersistable<Long> {
     @Enumerated(EnumType.STRING)
     private Rolle rolle;
 
-    @ManyToOne
-    @JoinColumn(name = "bewertung_id")
-    private Bewertung bewertungsteilnahme;
+    @ManyToMany(mappedBy = "teilnehmendeBenutzer")
+    private List<Bewertung> bewertungenTeilnahme;
+
+    @OneToMany(mappedBy = "benutzer")
+    private List<Bewertung> bewertungen;
 
     public Benutzer(String vorname, String nachname, String email, String handyNummer
-    ,LocalDate gebDatum) {
+    ,String gebDatum) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
