@@ -3,10 +3,7 @@ package com.d4u.Decision4You.data;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -14,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Entity
@@ -28,6 +26,7 @@ public class Bewertung extends AbstractPersistable<Long> {
     @Column(name = "code")
     private @NotNull String code;
 
+    @Getter
     @Column(name = "link")
     private @NotNull String link;
 
@@ -52,6 +51,9 @@ public class Bewertung extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "bewertung")
     private List<Bewertungskriterium> bewertungskriterien;
 
+    @Column(name = "gewichtung")
+    private double gewichtung;
+
     @Column(name = "erstellungsdatum")
     private @NotNull LocalDateTime erstellungsdatum;
 
@@ -64,12 +66,21 @@ public class Bewertung extends AbstractPersistable<Long> {
 
   /*  Dieser Methode verwendet die BenutzerID als Token und generiert einen Link,
     der zur Login-Seite und dann zur Bewertungsseite weiterleitet. */
-    public String generiereLink(Benutzer benutzer) {
+    public void generiereLink(Benutzer benutzer) {
+        if (benutzer.getId() == null) {
+            throw new IllegalStateException("Benutzer-ID darf nicht null sein");
+        }
         String benutzerToken = benutzer.getId().toString();
         String loginUrl = "https://UnsereDomain.com/login?token" + benutzerToken;
-        String bewertungsUrl = "https://UnsereDomain.com/bewertung";
-         return loginUrl + "&redirect=" + bewertungsUrl;
+        String bewertungsUrl = "https://UnsereDomain.com/bewertung" + benutzerToken;
+
+        // Überprüfe, ob loginUrl oder bewertungsUrl null sind
+        if (loginUrl == null || bewertungsUrl == null) {
+            throw new IllegalStateException("loginUrl or bewertungsUrl is null");
+        }
+       this.link = loginUrl + "&redirect=" + bewertungsUrl;
     }
+
     public void addBenutzer(Benutzer benutzer) {
         if (teilnehmendeBenutzer == null) {
             teilnehmendeBenutzer = new ArrayList<>();
@@ -83,4 +94,15 @@ public class Bewertung extends AbstractPersistable<Long> {
         bewertungskriterien.add(kriterium);
     }
 
+
+    public void setGewichtungForKriterien(Map<Long, Double> gewichtungen) {
+        for (Bewertungskriterium kriterium : bewertungskriterien) {
+            Long kriteriumId = kriterium.getId();
+
+            if (gewichtungen.containsKey(kriteriumId)) {
+                double benutzerGewichtung = gewichtungen.get(kriteriumId);
+                kriterium.setGewichtung(benutzerGewichtung);
+            }
+        }
+    }
 }

@@ -37,7 +37,6 @@ public class Benutzer extends AbstractPersistable <Long>{
     @Column(name = "handyNummer")
     private String handyNummer;
 
-    @Past
     @Column(name = "gebDatum")
     private String gebDatum;
 

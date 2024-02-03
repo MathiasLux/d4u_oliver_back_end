@@ -26,9 +26,10 @@ public class TestFixtures {
                 .build();
     }
 
-    public static Bewertung bewertung(/*List<Bewertungskriterium> kriterium, List<Benutzer> benutzer, String code, String link*/) {
+    public static Bewertung bewertung(Benutzer benutzer, List<Bewertungskriterium> bewertungskriterien, Bewertungsgegenstand bewertungsgegenstand) {
         return Bewertung.builder()
                 .name("TestBewertung")
+                .bewertungskriterien(bewertungskriterien())
                 .bewertungsgegenstand(bewertungsgegenstand())
                 .erstellungsdatum(LocalDateTime.now())
                 .build();
@@ -39,12 +40,12 @@ public class TestFixtures {
         bewertungskriterien.add(Bewertungskriterium.builder()
                 .kriteriumName("Kriterium1")
                 .beschreibung("Beschreibung1")
-                .gewichtung(3)
+                        .gewichtung(3)
                 .build());
         bewertungskriterien.add(Bewertungskriterium.builder()
                 .kriteriumName("Kriterium2")
                 .beschreibung("Beschreibung2")
-                .gewichtung(5)
+                        .gewichtung(4)
                 .build());
 
         return bewertungskriterien;

@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.util.List;
 
 @Data
 @Entity
@@ -29,7 +28,7 @@ public class Bewertungskriterium extends AbstractPersistable<Long> {
     @Min(1)
     @Max(5)
     @Column(name = "gewichtung")
-    private @NotNull Integer gewichtung;
+    private @NotNull double gewichtung;
 
     @ManyToOne
     @JoinColumn(name = "bewertung_id")
