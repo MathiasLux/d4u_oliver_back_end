@@ -9,9 +9,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @Entity
@@ -95,7 +93,7 @@ public class Bewertung extends AbstractPersistable<Long> {
     }
 
 
-    public void setGewichtungForKriterien(Map<Long, Double> gewichtungen) {
+    public void setKriterienGewichtung(Map<Long, Double> gewichtungen) {
         for (Bewertungskriterium kriterium : bewertungskriterien) {
             Long kriteriumId = kriterium.getId();
 
@@ -105,4 +103,25 @@ public class Bewertung extends AbstractPersistable<Long> {
             }
         }
     }
+
+    public double berechneMedian(List<Double> werte) {
+        Collections.sort(werte);
+        int mitte = werte.size() / 2;
+        if (werte.size() % 2 == 1) {
+            return werte.get(mitte);
+        } else {
+            return (werte.get(mitte - 1) + werte.get(mitte)) / 2.0;
+        }
+    }
+
+    public double berechneMittelwert(List<Double> werte) {
+        double summe = 0;
+        for (double wert : werte) {
+            summe += wert;
+        }
+        return summe / werte.size();
+    }
+
+
 }
+
