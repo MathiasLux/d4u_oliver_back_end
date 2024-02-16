@@ -21,6 +21,8 @@ public class LoginSeite extends VerticalLayout
         LoginForm login = new LoginForm();
 
         //Add Uses
+        login.setError(true);
+        login.addLoginListener(e-> login.getUI().ifPresent(ui -> ui.navigate("Admin_Start")));
 
         //Personalise Login
         LoginI18n i18n = LoginI18n.createDefault();

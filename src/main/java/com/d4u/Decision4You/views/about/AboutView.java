@@ -2,6 +2,7 @@ package com.d4u.Decision4You.views.about;
 
 import com.d4u.Decision4You.views.about.views.Landing;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
@@ -10,7 +11,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.theme.lumo.Lumo;
+import com.vaadin.flow.theme.lumo.LumoIcon;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
+import org.vaadin.lineawesome.LineAwesomeIcon;
 
 @PageTitle("About")
 @Route(value = "About")
@@ -32,6 +36,7 @@ public class AboutView extends VerticalLayout {
         Button button = new Button("Goto Landing");
         button.addClickListener(e ->
                 button.getUI().ifPresent(ui -> ui.navigate("Landing")));
+
         add(button);
 
         setSizeFull();
