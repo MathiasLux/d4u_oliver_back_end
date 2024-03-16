@@ -1,3 +1,4 @@
+/*
 package com.d4u.Decision4You.views.about.views;
 
 import com.vaadin.flow.component.html.H2;
@@ -15,3 +16,4 @@ public class Bewerter_KriterienVergleich extends VerticalLayout
         add(text);
     }
 }
+*/

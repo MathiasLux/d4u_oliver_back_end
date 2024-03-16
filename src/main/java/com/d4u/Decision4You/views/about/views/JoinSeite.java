@@ -1,3 +1,4 @@
+/*
 package com.d4u.Decision4You.views.about.views;
 
 import com.vaadin.flow.component.Unit;
@@ -66,3 +67,4 @@ public class JoinSeite extends VerticalLayout
         add(v1,v2,v3,login);
     }
 }
+*/

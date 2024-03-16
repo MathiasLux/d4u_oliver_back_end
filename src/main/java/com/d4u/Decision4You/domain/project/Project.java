@@ -10,11 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
-import static com.d4u.Decision4You.foundation.AssertUtil.hasMaxText;
-import static com.d4u.Decision4You.foundation.AssertUtil.hasMinSize;
 import static com.d4u.Decision4You.foundation.AssertUtil.*;
 import static com.d4u.Decision4You.foundation.EntityUtil.generateUUIDv4;
-import static jdk.dynalink.linker.support.Guards.isNotNull;
 
 @Getter
 @ToString
@@ -49,6 +46,7 @@ public class Project extends BaseEntity<String> {
         super(generateUUIDv4());
 
         this.creatorId = isNotNull(creatorId, "creatorId");
+       // this.creatorId = isNotNull();
         this.title = hasMaxText(title, 100, "title");
         this.description = hasMaxText(description, 4096, "description");
         this.votersIds = hasMinSize(voterIds, 1, "votesIds");

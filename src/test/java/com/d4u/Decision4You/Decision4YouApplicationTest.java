@@ -1,13 +1,13 @@
 package com.d4u.Decision4You;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class DecisionApplicationTests {
+class Decision4YouApplicationTest {
 
     @Test
-    public void contextLoads() {
-
+    void contextLoads() {
     }
+
 }

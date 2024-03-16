@@ -1,3 +1,4 @@
+/*
 package com.d4u.Decision4You.views.about;
 
 import com.d4u.Decision4You.views.about.views.Landing;
@@ -46,3 +47,4 @@ public class AboutView extends VerticalLayout {
     }
 
 }
+*/
