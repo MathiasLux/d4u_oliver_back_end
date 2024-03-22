@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Configuration for the password encoder.
+ *
+ * <p>Here we define the password encoder that is used to encode and decode passwords.
+ */
 @Configuration
 public class PasswordEncoderConfig {
 
