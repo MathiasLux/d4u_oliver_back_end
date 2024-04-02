@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+/**
+ * Base class for all domain entities (that are persisted to the as an own collection)
+ */
 @Getter
 public abstract class BaseEntity<PK extends Serializable> {
 

@@ -6,6 +6,9 @@ import java.util.Collection;
 
 import static java.lang.String.format;
 
+/**
+ * Assertion utility class that assists in validating arguments.
+ */
 public abstract class AssertUtil {
 
     // A simple email pattern that is not 100% correct but good enough for our use case.

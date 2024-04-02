@@ -41,13 +41,21 @@ dependencies {
     implementation("com.nulab-inc:zxcvbn:1.8.2")
 
     // Mail
-    implementation("org.springframework.boot:spring-boot-starter-mail:3.2.0")
+    // implementation("org.springframework.boot:spring-boot-starter-mail:3.2.0")
 
-    // Controller Tests
+    // Rest Assured
     testImplementation("io.rest-assured:rest-assured:5.3.1")
 
     // Crypto Bouncy Castle
-    implementation("org.bouncycastle:bcpkix-jdk15on:1.70")
+    // implementation("org.bouncycastle:bcpkix-jdk15on:1.70")
+
+    // Map Struct
+    implementation("org.mapstruct:mapstruct:1.5.3.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
+
+    // Json Path
+    // implementation("com.jayway.jsonpath:json-path:2.9.0")
+
 }
 
 tasks.withType<Test> {

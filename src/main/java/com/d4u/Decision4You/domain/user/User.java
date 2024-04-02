@@ -1,21 +1,26 @@
 package com.d4u.Decision4You.domain.user;
 
 import com.d4u.Decision4You.domain.BaseEntity;
-import com.d4u.Decision4You.security.PasswordService;
+import com.d4u.Decision4You.security.password.PasswordService;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import static com.d4u.Decision4You.foundation.AssertUtil.isValidEmail;
 import static com.d4u.Decision4You.foundation.EntityUtil.generateUUIDv4;
 
+/**
+ * A user of the application.
+ */
 @Getter
 @ToString
 @Document(collection = "user")
+@TypeAlias("user")
 public class User extends BaseEntity<String> {
 
     @Indexed(unique = true)
@@ -50,6 +55,7 @@ public class User extends BaseEntity<String> {
 
         this.email = isValidEmail(email, "email");
         this.password = password.getEncodedPassword();
+
         this.role = role;
         this.profile = profile;
         this.account = new Account();

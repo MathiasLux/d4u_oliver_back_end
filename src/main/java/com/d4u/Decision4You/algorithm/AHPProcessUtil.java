@@ -1,5 +1,12 @@
 package com.d4u.Decision4You.algorithm;
 
+import com.d4u.Decision4You.domain.project.Project;
+import com.d4u.Decision4You.domain.project.Vote;
+
+import java.util.List;
+
+import static com.d4u.Decision4You.foundation.AssertUtil.isTrue;
+
 /**
  * The Analytic Hierarchy Process (AHP) algorithm is a multi-user, multi-criteria decision-making method that uses
  * pairwise comparisons to determine the relative importance of criteria and alternatives.
@@ -11,18 +18,37 @@ package com.d4u.Decision4You.algorithm;
 public abstract class AHPProcessUtil {
 
     /**
+     * Helper method to execute the AHP process for a project.
+     */
+    public static double[] executeAHPProcess(Project project, List<Vote> votes) {
+        isTrue(!votes.isEmpty(), "No votes provided.");
+        double[][][] combinedCriteriaAssessment = toCombinedCriteriaAssessment(votes);
+        double[][] consensusMatrix = aggregateCriteria(combinedCriteriaAssessment);
+        double[][] normalizedMatrix = normalizeConsensusMatrix(consensusMatrix);
+        double[] criteriaWeights = calculateCriteriaWeights(normalizedMatrix);
+        return scoreAlternatives(criteriaWeights, project.getAlternativeJudgments());
+    }
+
+    /**
+     * Helper method to convert user votes into a pairwise comparison matrix creating a shallow copy.
+     */
+    public static double[][][] toCombinedCriteriaAssessment(List<Vote> votes) {
+        return votes.stream().map(Vote::getCriteriaAssessment).toArray(double[][][]::new);
+    }
+
+    /**
      * Step 1: Aggregates individual pairwise comparison matrices from all users to create a consensus matrix.
      *
-     * @param criteriaComparison A 3D array containing the pairwise comparisons for criteria from multiple users.
+     * @param combinedCriteriaAssessment A 3D array containing the pairwise comparisons for criteria from multiple users.
      * @return A 2D array representing the aggregated matrix for criteria.
      */
-    public static double[][] aggregateCriteria(double[][][] criteriaComparison) {
+    public static double[][] aggregateCriteria(double[][][] combinedCriteriaAssessment) {
 
         // The number of users is the length of the first dimension of the 3D array.
-        int numOfUsers = criteriaComparison.length;
+        int numOfUsers = combinedCriteriaAssessment.length;
 
         // The number of criteria is the length of the second dimension of the 3D array.
-        int numOfCriteria = criteriaComparison[0].length;
+        int numOfCriteria = combinedCriteriaAssessment[0].length;
 
         // The consensus matrix is a 2D array with the same number of criteria as the input.
         double[][] consensusMatrix = new double[numOfCriteria][numOfCriteria];
@@ -31,7 +57,7 @@ public abstract class AHPProcessUtil {
         for (int i = 0; i < numOfCriteria; i++) {
             for (int j = 0; j < numOfCriteria; j++) {
                 double sum = 0;
-                for (double[][] doubles : criteriaComparison) {
+                for (double[][] doubles : combinedCriteriaAssessment) {
                     sum += doubles[i][j];
                 }
                 consensusMatrix[i][j] = sum / numOfUsers;
@@ -117,20 +143,20 @@ public abstract class AHPProcessUtil {
      * Step 4: Calculates the final scores for each alternative based on the criteria weights and the creator's assessments.
      *
      * @param criteriaWeights An array of weights for each criterion.
-     * @param creatorAssessment A 2D array where each row represents an alternative and columns represent the creator's assessments.
+     * @param alternativeAssessment A 2D array where each row represents an alternative and columns represent the creator's assessments.
      * @return An array of final scores for each alternative.
      */
-    public static double[] scoreAlternatives(double[] criteriaWeights, double[][] creatorAssessment) {
+    public static double[] scoreAlternatives(double[] criteriaWeights, int[][] alternativeAssessment) {
 
         // An array to store the final scores for each alternative.
-        double[] finalScores = new double[creatorAssessment.length];
+        double[] finalScores = new double[alternativeAssessment.length];
 
         // Calculate the final score for each alternative based on the criteria weights and creator's assessments.
-        for (int alt = 0; alt < creatorAssessment.length; alt++) {
+        for (int alt = 0; alt < alternativeAssessment.length; alt++) {
             double score = 0;
             // Multiply each criterion weight by the creator's assessment for the alternative.
             for (int crit = 0; crit < criteriaWeights.length; crit++) {
-                score += criteriaWeights[crit] * creatorAssessment[alt][crit];
+                score += criteriaWeights[crit] * alternativeAssessment[alt][crit];
             }
             finalScores[alt] = score;
         }

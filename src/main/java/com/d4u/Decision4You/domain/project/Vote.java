@@ -5,26 +5,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import org.springframework.data.mongodb.core.index.Indexed;
 import static com.d4u.Decision4You.foundation.AssertUtil.isNotNull;
 import static com.d4u.Decision4You.foundation.EntityUtil.generateUUIDv4;
 
 @Getter
 @ToString
 @Document(collection = "vote")
+@TypeAlias("vote")
 public class Vote extends BaseEntity<String> {
 
     // The project this vote is for.
-    @Indexed private String projectId;
+    @Indexed
+    private String projectId;
 
     // The voter who cast this vote.
-    @Indexed private String voterId;
+    @Indexed
+    private String voterId;
 
     // The voter's pairwise comparisons of the criteria.
-    // The creator's judgments of how well each criterion is implemented by each alternative.
-    private double[][] vote;
+    private double[][] criteriaAssessment;
 
 
     // ctor --------------------------------------------
@@ -38,11 +41,12 @@ public class Vote extends BaseEntity<String> {
     }
 
     // Constructor for us developers to use when creating a new user in memory.
-    public Vote(String projectId, String voterId, double[][] vote) {
+    public Vote(String projectId, String voterId, double[][] criteriaAssessment) {
         super(generateUUIDv4());
 
         this.projectId = isNotNull(projectId, "projectId");
         this.voterId = isNotNull(voterId, "voterId");
-        this.vote = vote;
+
+        this.criteriaAssessment = criteriaAssessment;
     }
 }
