@@ -1,14 +1,15 @@
 package com.d4u.Decision4You.algorithm;
 
 import com.d4u.Decision4You.domain.project.Vote;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class AHPProcessUtilTest {
+public class AHPProcessTest {
 
     @Test
     public void toCombinedCriteriaAssessment_shouldTransformVotesCorrectly() {
