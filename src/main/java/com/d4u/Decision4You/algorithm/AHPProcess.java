@@ -15,26 +15,18 @@ import static com.d4u.Decision4You.foundation.AssertUtil.isTrue;
  * normalizing the consensus matrix, calculating criteria weights, and scoring alternatives.</p>
  */
 
-public abstract class AHPProcessUtil {
+public abstract class AHPProcess {
 
     /**
      * Helper method to execute the AHP process for a project.
      */
-    public static double[] executeAHPProcess(Project project, List<Vote> votes) {
-        isTrue(!votes.isEmpty(), "No votes provided.");
-        double[][][] combinedCriteriaAssessment = toCombinedCriteriaAssessment(votes);
+    public static double[] execute(int[][] alternativeJudgments, double[][][] combinedCriteriaAssessment) {
         double[][] consensusMatrix = aggregateCriteria(combinedCriteriaAssessment);
         double[][] normalizedMatrix = normalizeConsensusMatrix(consensusMatrix);
         double[] criteriaWeights = calculateCriteriaWeights(normalizedMatrix);
-        return scoreAlternatives(criteriaWeights, project.getAlternativeJudgments());
+        return scoreAlternatives(criteriaWeights, alternativeJudgments);
     }
 
-    /**
-     * Helper method to convert user votes into a pairwise comparison matrix creating a shallow copy.
-     */
-    public static double[][][] toCombinedCriteriaAssessment(List<Vote> votes) {
-        return votes.stream().map(Vote::getCriteriaAssessment).toArray(double[][][]::new);
-    }
 
     /**
      * Step 1: Aggregates individual pairwise comparison matrices from all users to create a consensus matrix.

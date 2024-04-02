@@ -25,7 +25,7 @@ public abstract class AssertUtil {
     /**
      * Assert that the given object is not null.
      *
-     * @param obj the object to check
+     * @param obj  the object to check
      * @param name the attribute name to use if the assertion fails
      * @return the object
      */
@@ -38,7 +38,7 @@ public abstract class AssertUtil {
      * Assert that the given email is valid.
      *
      * @param email the email to check
-     * @param name the attribute name to use if the assertion fails
+     * @param name  the attribute name to use if the assertion fails
      * @return the email
      */
     public static String isValidEmail(String email, String name) {
@@ -50,7 +50,7 @@ public abstract class AssertUtil {
     /**
      * Assert that the given value has minimum size.
      *
-     * @param min the minimum size
+     * @param min  the minimum size
      * @param name the attribute name to use if the assertion fails
      * @return the value
      */
@@ -62,7 +62,7 @@ public abstract class AssertUtil {
     /**
      * Assert that the given integer has maximum size.
      *
-     * @param max the maximum size
+     * @param max  the maximum size
      * @param name the attribute name to use if the assertion fails
      * @return the value
      */
@@ -75,10 +75,10 @@ public abstract class AssertUtil {
      * Assert that the given text has minimum length.
      *
      * @param text the text to check
-     * @param min the minimum length
+     * @param min  the minimum length
      * @param name the attribute name to use if the assertion fails
-     * @throws IllegalArgumentException if the text is null or empty or shorter than min
      * @return the text
+     * @throws IllegalArgumentException if the text is null or empty or shorter than min
      */
     public static String hasMinText(String text, int min, String name) {
         Assert.hasText(text, () -> format(hasMinTextMsg, name, min));
@@ -90,10 +90,10 @@ public abstract class AssertUtil {
      * Assert that the given text has maximum length.
      *
      * @param text the text to check
-     * @param max the maximum length
+     * @param max  the maximum length
      * @param name the attribute name to use if the assertion fails
-     * @throws IllegalArgumentException if the text is null or empty or longer than max
      * @return the text
+     * @throws IllegalArgumentException if the text is null or empty or longer than max
      */
     public static String hasMaxText(String text, int max, String name) {
         Assert.hasText(text, () -> format(hasMaxTextMsg, name, max));
@@ -104,8 +104,8 @@ public abstract class AssertUtil {
     /**
      * Assert that the given collection has minimum size.
      *
-     * @param c the collection to check
-     * @param min the minimum size
+     * @param c    the collection to check
+     * @param min  the minimum size
      * @param name the attribute name to use if the assertion fails
      * @return the collection
      */
@@ -118,8 +118,8 @@ public abstract class AssertUtil {
     /**
      * Assert that the given collection has maximum size.
      *
-     * @param c the collection to check
-     * @param max the maximum size
+     * @param c    the collection to check
+     * @param max  the maximum size
      * @param name the attribute name to use if the assertion fails
      * @return the collection
      */
@@ -129,7 +129,9 @@ public abstract class AssertUtil {
         return c;
     }
 
-    /** Assert that the given text has maximum length or is null. */
+    /**
+     * Assert that the given text has maximum length or is null.
+     */
     public static String hasMaxTextOrNull(String text, int max, String name) {
         if (text != null) {
             hasMaxText(text, max, name);
@@ -137,7 +139,9 @@ public abstract class AssertUtil {
         return text;
     }
 
-    /** Assert that the given collection has maximum size or is null. */
+    /**
+     * Assert that the given collection has maximum size or is null.
+     */
     public static <C extends Collection<?>> C hasMaxSizeOrNull(C c, int max, String name) {
         if (c != null) {
             hasMaxSize(c, max, name);
@@ -145,7 +149,9 @@ public abstract class AssertUtil {
         return c;
     }
 
-    /** Assert that the given expression is true. */
+    /**
+     * Assert that the given expression is true.
+     */
     public static void isTrue(boolean expression, String msg) {
         Assert.isTrue(expression, () -> msg);
     }

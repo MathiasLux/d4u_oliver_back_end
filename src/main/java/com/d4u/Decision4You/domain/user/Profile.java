@@ -4,6 +4,11 @@ import lombok.Getter;
 
 import static com.d4u.Decision4You.foundation.AssertUtil.hasMaxText;
 
+/**
+ * Profile of a user.
+ *
+ * <p>Here we can place base profile information of a user.
+ */
 @Getter
 public class Profile {
     private String firstName;

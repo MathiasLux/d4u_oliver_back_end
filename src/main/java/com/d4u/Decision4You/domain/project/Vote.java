@@ -9,8 +9,14 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.d4u.Decision4You.foundation.AssertUtil.isNotNull;
 import static com.d4u.Decision4You.foundation.EntityUtil.generateUUIDv4;
+
+
+
 
 @Getter
 @ToString
@@ -48,5 +54,25 @@ public class Vote extends BaseEntity<String> {
         this.voterId = isNotNull(voterId, "voterId");
 
         this.criteriaAssessment = criteriaAssessment;
+    }
+
+
+    // methods --------------------------------------------
+
+    /**
+     * Helper method to convert user votes into a pairwise comparison matrix creating a shallow copy.
+     */
+    public static double[][][] toCriteriaAssessment(List<Vote> votes) {
+        return votes.stream().map(Vote::getCriteriaAssessment).toArray(double[][][]::new);
+    }
+
+
+    /**
+     * Helper method to combine a new vote with existing votes.
+     */
+    public static List<Vote> combine(List<Vote> existingVotes, Vote newVote) {
+        List<Vote> combinedVotes = new ArrayList<>(existingVotes);
+        combinedVotes.add(newVote);
+        return combinedVotes;
     }
 }
